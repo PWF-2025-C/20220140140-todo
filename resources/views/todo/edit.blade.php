@@ -9,7 +9,30 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __('Edit Todo Page') }}
+                    <form method="post" action="{{ route('todo.update', $todo) }}" class="">
+                        @csrf
+                        @method('patch')
+                        <div class="mb-6">
+                            <x-input-label for="title" :value="__('Title')" />
+                           <x-text-input 
+                                id="title" 
+                                name="title" 
+                                type="text" 
+                                class="mt-1 block w-full text-black dark:text-white bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
+                                :value="old('title', $todo->title)" 
+                                required 
+                                autofocus 
+                                autocomplete="title" 
+                            />
+
+                            <x-input-error class="mt-2" :messages="$errors->get('title')" />
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <x-primary-button>{{ __('Save') }}</x-primary-button>
+                            <a href="{{ route('todo.index') }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

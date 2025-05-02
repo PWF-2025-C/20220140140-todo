@@ -1,45 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Welcome to Create Todo Page') }}
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Create Todo') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
-                    {{ __('Create Todo') }}
-                </div>
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <form action="{{ route('todo.store') }}" method="POST">
+                    @csrf
 
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form method="post" action="{{ route('todo.store') }}">
-                        @csrf
-                        @method('post')
+                    <div class="mb-4">
+                        <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Title</label>
+                        <input type="text" name="title" id="title"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-indigo-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                               required>
+                    </div>
 
-                        <div class="mb-6">
-                            <x-input-label for="title" :value="('Title')" />
-                            <x-text-input
-                                id="title"
-                                name="title"
-                                type="text"
-                                class="block w-full mt-1"
-                                required
-                                autofocus
-                                autocomplete="title"
-                            />
-                            <x-input-error class="mt-2" :messages="$errors->get('title')" />
-                        </div>
-
-                        <div class="flex items-center gap-4">
-                            <x-primary-button>{{ __('Save') }}</x-primary-button>
-                            <a href="{{ route('todo.index') }}"
-                               class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-gray-700 uppercase transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25">
-                                {{ __('Cancel') }}
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow">
+                            Save
+                        </button>
+                        <a href="{{ route('todo.index') }}" class="ml-2 text-gray-500 hover:underline">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
