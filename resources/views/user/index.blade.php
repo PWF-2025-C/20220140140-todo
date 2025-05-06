@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="relative overflow-x-aut0 flex justify center">
+                <div class="relative overflow-x-auto flex justify center">
                     <table class="w-full max-w-4xl text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-s text-left text-gray-700  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -73,9 +73,10 @@
                                     <td class="px-3 py-1 font-medium text-white md:whitespace-nowrap dark:text-white">
                                         <p>{{ $user->name }}</p>
                                     </td>
-                                    <td class="px-3 py-1">
-                                        <p>{{ $user->email }}</p>
-                                    </td>
+                                    <td class="px-3 py-1 text-white dark:text-white">
+                                    <p>{{ $user->email }}</p>
+                                     </td>
+
                                     <td class="px-3 py-1 whitespace-nowrap">
                                         <p>{{ $user->todos->count() }}</p>
                                         <span class="text-green-600 dark:text-green-400">

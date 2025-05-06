@@ -12,16 +12,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-        {{ __('Dashboard') }}
-    </x-nav-link>
-    <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
-        {{ __('Todos') }}
-    </x-nav-link>
-    <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
-        {{ __('User') }}
-    </x-nav-link>
-</div>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
+                        {{ __('Todos') }}
+                    </x-nav-link>
+
+                    @can('admin')
+                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    @endcan
+                </div>
 
             </div>
 
