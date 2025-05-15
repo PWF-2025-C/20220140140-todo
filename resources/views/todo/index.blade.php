@@ -62,17 +62,25 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-200">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">Title</th>
+                                        <th scope="col" class="px-6 py-3">Category</th>
                                         <th scope="col" class="px-6 py-3">Status</th>
                                         <th scope="col" class="px-6 py-3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @forelse ($todos as $todo)
-<tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
+                                <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
+    <!-- TITLE -->
     <td class="px-6 py-4 text-white dark:text-white">
         {{ $todo->title }}
     </td>
 
+    <!-- CATEGORY -->
+    <td class="px-6 py-4">
+        {{ $todo->category->name ?? 'No Category' }}
+    </td>
+
+    <!-- STATUS -->
     <td class="px-6 py-4">
         @if ($todo->is_done)
             <span class="inline-block px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">Completed</span>
@@ -81,6 +89,7 @@
         @endif
     </td>
 
+    <!-- ACTION -->
     <td class="px-6 py-4">
         <div class="flex space-x-3">
             <a href="{{ route('todo.edit', $todo) }}" class="text-blue-500 hover:underline">Edit</a>
@@ -107,6 +116,7 @@
         </div>
     </td>
 </tr>
+
 @empty
 <tr><td colspan="3" class="text-white">No todo found.</td></tr>
 @endforelse

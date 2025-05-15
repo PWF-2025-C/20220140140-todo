@@ -15,17 +15,21 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
                     <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
                         {{ __('Todos') }}
                     </x-nav-link>
 
-                    @can('admin')
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
-                        {{ __('User') }}
+                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+                        {{ __('Category') }}
                     </x-nav-link>
+
+                    @can('admin')
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
+                            {{ __('User') }}
+                        </x-nav-link>
                     @endcan
                 </div>
-
             </div>
 
             <!-- Settings Dropdown -->
@@ -81,14 +85,21 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
             <x-responsive-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
                 {{ __('Todos') }}
             </x-responsive-nav-link>
+
+
             @if (Auth::check() && Auth::user()->is_admin)
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
                     {{ __('User') }}
                 </x-responsive-nav-link>
             @endif
+
+            <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+                {{ __('Category') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

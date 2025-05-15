@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     // Group khusus admin
     Route::middleware(['auth', 'admin'])->group(function () {
     // Semua route resource user (kecuali show, bisa ditambah kalau perlu)
+    Route::resource('categories', CategoryController::class);
     Route::resource('user', UserController::class)->except(['show']);
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 

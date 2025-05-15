@@ -9,12 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Untuk relasi ke users
-            $table->string('title');
-            $table->boolean('is_done')->default(false);
-            $table->timestamps();
-        });
+    $table->id();
+    $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // Relasi ke users
+    $table->string('name');
+    $table->boolean('is_done')->default(false);
+    $table->boolean('is_complete')->default(false);
+    $table->timestamps();
+});
+
     }
 
     public function down(): void
