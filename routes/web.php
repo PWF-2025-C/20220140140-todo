@@ -4,6 +4,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('category', CategoryController::class)->except(['show']);
+});
+
 
 Route::get('/', function () {
     return view('welcome');
