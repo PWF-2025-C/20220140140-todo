@@ -1,6 +1,8 @@
 #tugas 9
 
-## a.middleware & Gate Admin Not Active
-![Alt text](screenshoot/tugas7/Screenshot_(860).png)
-## b.middleware & Gate Admin Active
-![Alt text](screenshoot/tugas7/Screenshot_(861).png)
+## a.Browser Category
+![Alt text](screenshoot/tugas9/Browser%20Category.png)
+## b.Browser Todo
+![Alt text](screenshoot/tugas9/Browser%20Todo.png)
+## c.Browser User
+![Alt text](screenshoot/tugas9/Browser%20User.png)
