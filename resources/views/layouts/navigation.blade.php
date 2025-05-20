@@ -20,7 +20,7 @@
                         {{ __('Todos') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                         {{ __('Category') }}
                     </x-nav-link>
 
@@ -90,14 +90,13 @@
                 {{ __('Todos') }}
             </x-responsive-nav-link>
 
-
             @if (Auth::check() && Auth::user()->is_admin)
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('users.*')">
                     {{ __('User') }}
                 </x-responsive-nav-link>
             @endif
 
-            <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+            <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                 {{ __('Category') }}
             </x-responsive-nav-link>
         </div>

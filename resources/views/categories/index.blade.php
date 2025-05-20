@@ -39,23 +39,30 @@
                                 <td class="px-6 py-4">
                                     {{ $category->todos_count }}
                                 </td>
-                                <td class="px-6 py-4 space-x-2">
-                                <a href="{{ route('categories.edit', $category->id) }}" class="text-blue-400 hover:underline">Edit</a>
+                                <td class="px-6 py-4 space-x-2 flex items-center">
+                                <!-- Edit -->
+                                <a href="{{ route('categories.edit', $category->id) }}" class="text-blue-400 hover:underline">
+                                    Edit
+                                </a>
 
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
+                                <!-- Delete -->
+                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:underline">
+                                    <button type="submit" class="text-red-500 hover:underline"
+                                        onclick="return confirm('Yakin ingin menghapus kategori ini?')">
                                         Delete
                                     </button>
                                 </form>
-                            </td>
 
 
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-6 py-4 text-center text-gray-400">No categories found.</td>
+                                <td colspan="3" class="px-6 py-4 text-center text-gray-400">
+                                    No categories found.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

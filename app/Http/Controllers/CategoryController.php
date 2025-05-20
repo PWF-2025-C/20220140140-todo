@@ -39,13 +39,8 @@ class CategoryController extends Controller
     
     public function destroy(Category $category)
     {
-        if ($category->user_id !== Auth::id()) {
-            return redirect()->route('categories.index')->with('danger', 'Anda tidak diizinkan menghapus kategori ini.');
-        }
-
         $category->delete();
-
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+        return redirect()->route('categories.index')->with('success', 'Category deleted!');
     }
 
     public function show(string $id)
@@ -54,26 +49,16 @@ class CategoryController extends Controller
         return view('categories.show', compact('category'));
     }   
 
-    public function edit(category $category)
+    public function edit(Category $category)
     {
-        if (auth()->user()->id == $category->user_id) {
-            return view('categories.edit', compact('category'));
-        } else {
-            return redirect()->route('categories.index')->with('danger', 'You are not authorized to edit this todo!');
-        }
-
+        return view('categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-        ]);
-        $category->update([
-            'name' => ucfirst($request->name),
-        ]);
-
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        $request->validate(['name' => 'required|string|max:255']);
+        $category->update(['name' => $request->name]);
+        return redirect()->route('categories.index')->with('success', 'Category updated!');
     }
 
 }
