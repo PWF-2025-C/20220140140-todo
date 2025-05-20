@@ -13,9 +13,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::withCount('todos')->get();
-
-    return view('categories.index', compact('categories'));
-}
+        return view('categories.index', compact('categories'));
+    }
+    
 
     public function create()
     {

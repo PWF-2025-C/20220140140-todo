@@ -25,31 +25,33 @@ class TodoController extends Controller
         return view('todo.index', compact('todos', 'todosCompleted'));
     }
 
-    // Show form to create a new todo
+// TodoController.php
     public function create()
     {
-        $categories = Category::where('user_id', auth()->id())->get();
+        $categories = \App\Models\Category::all();
         return view('todo.create', compact('categories'));
     }
+
     
 
     // Store a new todo
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'category_id' => 'required|integer'
+            'name' => 'required|string|max:255',
+            'category_id' => 'nullable|integer|exists:categories,id',
         ]);
     
         Todo::create([
-            'title' => $request->title,
+            'name' => $request->name,
             'category_id' => $request->category_id,
             'user_id' => auth()->id(),
-            'status' => 'Ongoing' // jika ada status default
+            'status' => 'Ongoing'
         ]);
     
         return redirect()->route('todo.index')->with('success', 'Todo created successfully.');
     }
+    
     
 
     // Show form to edit a todo
@@ -72,16 +74,17 @@ class TodoController extends Controller
             'name' => 'required|max:255',
             'category_id' => 'nullable|exists:categories,id',
         ]);
-
+    
         $todo->update([
             'name' => ucfirst($request->name),
             'category_id' => $request->category_id,
         ]);
-
+    
         return redirect()
             ->route('todo.index')
             ->with('success', 'Todo updated successfully!');
     }
+    
 
     // Mark todo as completed
     public function complete(Todo $todo)

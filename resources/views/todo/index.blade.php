@@ -72,12 +72,12 @@
                                 <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
     <!-- TITLE -->
     <td class="px-6 py-4 text-white dark:text-white">
-        {{ $todo->title }}
+        {{ $todo->name }}
     </td>
 
     <!-- CATEGORY -->
     <td class="px-6 py-4">
-        {{ $todo->category->name ?? 'No Category' }}
+    {{ $todo->category->name ?? '' }}
     </td>
 
     <!-- STATUS -->

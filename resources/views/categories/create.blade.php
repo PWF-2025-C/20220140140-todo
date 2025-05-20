@@ -18,16 +18,17 @@
                         @method('POST')
 
                         <div class="mb-6">
-                            <x-input-label for="name" :value="__('Name')" />
+                        <x-input-label for="name" :value="__('Title')" class="text-white text-xl font-bold" />
                             <x-text-input
-                                id="name"
-                                name="name"
-                                type="text"
-                                class="block w-full mt-1"
-                                required
-                                autofocus
-                                autocomplete="name"
-                            />
+                            id="name"
+                            name="name"
+                            type="text"
+                            class="block w-full mt-1 bg-white text-gray-900 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                            required
+                            autofocus
+                            autocomplete="name"
+                        />
+
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 

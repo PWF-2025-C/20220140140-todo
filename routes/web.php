@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 
     // Todo routes
     Route::get('/todo', [TodoController::class, 'index'])->name('todo.index');
-    Route::post('/todo', [TodoController::class, 'store'])->name('todo.store');
+    Route::post('/todos', [TodoController::class, 'store'])->name('todo.store');
     Route::get('/todo/create', [TodoController::class, 'create'])->name('todo.create');
     Route::get('/todo/{todo}/edit', [TodoController::class, 'edit'])->name('todo.edit');
     Route::patch('/todo/{todo}', [TodoController::class, 'update'])->name('todo.update');
@@ -36,15 +36,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/todo/{todo}/incomplete', [TodoController::class, 'uncomplete'])->name('todo.uncomplete');
     Route::delete('/todo/delete-completed', [TodoController::class, 'deleteCompleted'])->name('todo.deleteCompleted');
     Route::delete('/todo/{todo}', [TodoController::class, 'destroy'])->name('todo.destroy');
+    
 });
 
-    // Group khusus admin
-    Route::middleware(['auth', 'admin'])->group(function () {
+
     // Semua route resource user (kecuali show, bisa ditambah kalau perlu)
     Route::resource('categories', CategoryController::class);
     Route::resource('user', UserController::class)->except(['show']);
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
+
+     // Group khusus admin
+    
+    Route::middleware(['auth', 'admin'])->group(function () {
     // Tambahan aksi untuk ubah status admin
     Route::patch('/user/{user}/makeadmin', [UserController::class, 'makeadmin'])->name('user.makeadmin');
     Route::patch('/user/{user}/removeadmin', [UserController::class, 'removeadmin'])->name('user.removeadmin');

@@ -18,10 +18,10 @@
                     {{-- name Input --}}
                     <div class="mb-6">
                         <label for="Title" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Title</label>
-                        <input type="text" name="title" id="title"
+                        <input type="text" name="name" id="name"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-indigo-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                required>
-                        @error('title')
+                        @error('name')
                             <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
@@ -30,13 +30,17 @@
                     <div class="mb-6">
                         <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Category</label>
                         <select name="category_id" id="category_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-indigo-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                required>
-                            <option value="">-- Select Category --</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-indigo-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="">No Category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                       </select>
+
+
+
                         @error('category_id')
                             <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                         @enderror
