@@ -5,8 +5,11 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use Dedoc\Scramble\Http\Controllers\DocsController;
 
-
+Route::middleware(['web'])->group(function () {
+    Route::get('/docs/api', [DocsController::class, 'show']);
+});
 
 Route::get('/', function () {
     return view('welcome');
