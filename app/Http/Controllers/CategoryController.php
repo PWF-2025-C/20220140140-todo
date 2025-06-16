@@ -60,5 +60,17 @@ class CategoryController extends Controller
         $category->update(['name' => $request->name]);
         return redirect()->route('categories.index')->with('success', 'Category updated!');
     }
+    public function myCategories()
+{
+    $user = Auth::user();
+
+    $categories = Category::where('user_id', $user->id)->get();
+
+    return response()->json([
+        'status_code' => 200,
+        'message' => 'Berhasil mengambil kategori milik user',
+        'data' => $categories
+    ]);
+}
 
 }

@@ -56,17 +56,34 @@ class TodoController extends Controller
         try {
             $data = $request->validate([
                 'title' => 'required|string|max:255',
-                'category_id' => 'nullable|exists:categories,id,user_id,' . Auth::id(),
+                'category_id' => 'nullable|exists:categories,id',
                 'is_done' => 'boolean',
             ]);
-
+    
+            // Jika ada category_id, pastikan itu milik user yang sedang login
+            if (isset($data['category_id'])) {
+                $category = Category::where('id', $data['category_id'])
+                    ->where('user_id', Auth::id())
+                    ->first();
+    
+                if (!$category) {
+                    return response()->json([
+                        'status_code' => 422,
+                        'message' => 'Validasi gagal',
+                        'errors' => [
+                            'category_id' => ['Category tersebut bukan milik user yang login.'],
+                        ],
+                    ], 422);
+                }
+            }
+    
             $todo = Todo::create([
                 'title' => $data['title'],
                 'user_id' => Auth::id(),
                 'category_id' => $data['category_id'] ?? null,
                 'is_done' => $data['is_done'] ?? false,
             ]);
-
+    
             return response()->json([
                 'status_code' => 201,
                 'message' => 'Todo berhasil dibuat',
@@ -80,6 +97,7 @@ class TodoController extends Controller
             ], 422);
         }
     }
+    
     /**
      * Mengambil semua todo milik pengguna yang terautentikasi.
      */
