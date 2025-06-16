@@ -3,13 +3,15 @@
 namespace App\Providers;
 
 use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Gate;
-use Laravel\Sanctum\PersonalAccessToken;
 use Laravel\Sanctum\Sanctum;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,20 +23,26 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-
     /**
-     * Bootsrap any application services.
+     * Bootstrap any application services.
      */
-
     public function boot(): void
     {
+        // Menggunakan Tailwind untuk Paginator
         Paginator::useTailwind();
+
+        // Mendefinisikan Gate 'admin' untuk memastikan user adalah admin
         Gate::define('admin', function ($user) {
-            return $user->is_admin == true;
+            return $user->is_admin === true;
         });
-        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+
+        // Mengonfigurasi Scramble untuk route yang dimulai dengan 'api'
         Scramble::configure()->routes(function (Route $route) {
-            return Str::startsWith($route->uri, 'api/');
+            return Str::startsWith($route->uri, 'api');
+        })->withDocumentTransformers(function (OpenApi $openApi) {
+            $openApi->secure(
+                SecurityScheme::http('bearer')
+            );
         });
     }
 }

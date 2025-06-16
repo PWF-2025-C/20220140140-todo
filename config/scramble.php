@@ -107,4 +107,15 @@ return [
     ],
 
     'extensions' => [],
+    'auth' => [
+        'enabled' => true,
+        'default' => 'bearer',
+        'guards' => [
+            'bearer' => [
+                'type' => 'http',
+                'scheme' => 'bearer',
+            ],
+        ],
+    ],
+    
 ];
